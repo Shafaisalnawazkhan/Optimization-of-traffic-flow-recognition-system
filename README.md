@@ -7,7 +7,7 @@ A Flask and computer-vision application following the supplied workflow:
 ## Features
 
 - Live webcam input and uploaded video analysis
-- YOLOv8s vehicle recognition with track-wise class voting (car, motorcycle, bus, truck)
+- Low-latency YOLOv8n vehicle recognition with track-wise class voting (car, motorcycle, bus, truck)
 - Automatic OpenCV motion-detection fallback when YOLO is unavailable
 - Low, Medium, and High congestion classification
 - Annotated MJPEG live stream, metrics, history chart, and CSV export

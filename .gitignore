@@ -3,6 +3,7 @@ __pycache__/
 *.pyc
 *.db
 *.log
+desktop.ini
 uploads/*
 !uploads/.gitkeep
 yolov8*.pt

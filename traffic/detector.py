@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import os
 import cv2
+from pathlib import Path
 
 
 class VehicleDetector:
@@ -17,9 +18,9 @@ class VehicleDetector:
         if os.getenv("USE_YOLO", "1") != "0":
             try:
                 from ultralytics import YOLO
-                model_name = os.getenv("YOLO_MODEL", "yolov8s.pt")
+                model_name = os.getenv("YOLO_MODEL", "yolov8n.pt")
                 self.model = YOLO(model_name)
-                self.backend = f"YOLOv8s + ByteTrack"
+                self.backend = f"{Path(model_name).stem} Fast + ByteTrack"
             except Exception:
                 self.model = None
 

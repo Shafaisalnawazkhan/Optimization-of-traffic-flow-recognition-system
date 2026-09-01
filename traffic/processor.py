@@ -63,6 +63,8 @@ class TrafficProcessor:
         self.frame = None
         self.counted_track_ids = set()
         self.track_sides = {}
+        self.track_positions = {}
+        self.recent_crossings = []
         self.track_label_votes = {}
         self.passed_vehicle_types = Counter()
         self.state = self._initial_state()
@@ -92,6 +94,8 @@ class TrafficProcessor:
         session_id = uuid.uuid4().hex[:12]
         self.counted_track_ids.clear()
         self.track_sides.clear()
+        self.track_positions.clear()
+        self.recent_crossings.clear()
         self.track_label_votes.clear()
         self.passed_vehicle_types.clear()
         self.stop_event.clear()
@@ -154,22 +158,35 @@ class TrafficProcessor:
                 risk_percentage = self.calculate_risk(count, density)
                 color = {"Low": (45, 190, 105), "Medium": (0, 180, 255), "High": (55, 65, 240)}[congestion]
                 line_y = int(frame.shape[0] * 0.62)
+                crossing_margin = max(14, int(frame.shape[0] * 0.045))
                 cv2.line(frame, (0, line_y), (frame.shape[1], line_y), (255, 205, 40), 3)
                 cv2.putText(frame, "VEHICLE COUNTING LINE", (18, line_y - 11), cv2.FONT_HERSHEY_SIMPLEX, .58, (255, 205, 40), 2)
                 for x1, y1, x2, y2, confidence, label, track_id in detections:
                     center_y = (y1 + y2) // 2
                     if track_id is not None:
-                        current_side = center_y >= line_y
+                        center_x = (x1 + x2) // 2
+                        positions = self.track_positions.setdefault(track_id, [])
+                        positions.append((center_x, center_y))
+                        if len(positions) > 12:
+                            del positions[:-12]
+                        stable_side = -1 if center_y < line_y - crossing_margin else (1 if center_y > line_y + crossing_margin else 0)
                         previous_side = self.track_sides.get(track_id)
-                        if previous_side is not None and previous_side != current_side and track_id not in self.counted_track_ids:
+                        moved_enough = len(positions) >= 3 and abs(positions[-1][1] - positions[0][1]) >= crossing_margin * 2
+                        if stable_side and previous_side and stable_side != previous_side and moved_enough and track_id not in self.counted_track_ids:
+                            crossing_time = time.monotonic()
+                            self.recent_crossings = [item for item in self.recent_crossings if crossing_time - item[0] < 0.8]
+                            duplicate = any(item[1] == label and abs(item[2] - center_x) < frame.shape[1] * 0.04 for item in self.recent_crossings)
                             self.counted_track_ids.add(track_id)
-                            self.passed_vehicle_types[label.title()] += 1
-                        self.track_sides[track_id] = current_side
+                            if not duplicate:
+                                self.passed_vehicle_types[label.title()] += 1
+                                self.recent_crossings.append((crossing_time, label, center_x))
+                        if stable_side:
+                            self.track_sides[track_id] = stable_side
                     cv2.rectangle(frame, (x1, y1), (x2, y2), color, 2)
                     identity = f" #{track_id}" if track_id is not None else ""
                     cv2.putText(frame, f"{label.upper()}{identity} {confidence:.0%}", (x1, max(22, y1-7)), cv2.FONT_HERSHEY_SIMPLEX, .52, color, 2)
                 cv2.rectangle(frame, (0, 0), (frame.shape[1], 52), (10, 18, 32), -1)
-                cv2.putText(frame, f"In frame: {count}   Passed: {len(self.counted_track_ids)}   Risk: {risk_percentage:.1f}%", (18, 34), cv2.FONT_HERSHEY_SIMPLEX, .72, (245,245,245), 2)
+                cv2.putText(frame, f"In frame: {count}   Passed: {sum(self.passed_vehicle_types.values())}   Risk: {risk_percentage:.1f}%", (18, 34), cv2.FONT_HERSHEY_SIMPLEX, .72, (245,245,245), 2)
                 now_tick = time.perf_counter()
                 instant_fps = 1 / max(now_tick - last_tick, .001)
                 smoothed_fps = instant_fps if not smoothed_fps else .9 * smoothed_fps + .1 * instant_fps
@@ -179,9 +196,10 @@ class TrafficProcessor:
                 with self.lock:
                     if encoded_ok:
                         self.frame = encoded.tobytes()
-                    self.state.update(vehicle_count=count, vehicle_types=vehicle_types, passed_count=len(self.counted_track_ids), passed_vehicle_types=dict(self.passed_vehicle_types), density=round(density, 1), congestion=congestion, risk_percentage=risk_percentage, fps=round(smoothed_fps, 1), backend=self.detector.backend)
+                    passed_total = sum(self.passed_vehicle_types.values())
+                    self.state.update(vehicle_count=count, vehicle_types=vehicle_types, passed_count=passed_total, passed_vehicle_types=dict(self.passed_vehicle_types), density=round(density, 1), congestion=congestion, risk_percentage=risk_percentage, fps=round(smoothed_fps, 1), backend=self.detector.backend)
                 if time.time() - last_saved >= 2:
-                    self.database.add(session_id, now, count, round(density, 1), congestion, source_type, len(self.counted_track_ids), dict(self.passed_vehicle_types), risk_percentage)
+                    self.database.add(session_id, now, count, round(density, 1), congestion, source_type, sum(self.passed_vehicle_types.values()), dict(self.passed_vehicle_types), risk_percentage)
                     last_saved = time.time()
         except Exception as exc:
             with self.lock:
