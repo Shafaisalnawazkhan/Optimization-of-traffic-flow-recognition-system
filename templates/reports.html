@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Reports · RoadPulse AI{% endblock %}
+{% block content %}
+<div class="page-hero"><p class="eyebrow">REAL ANALYSIS HISTORY</p><h1>Traffic intelligence reports</h1><p>Only vehicles detected and tracked during your latest analysis session are shown here.</p></div>
+<section class="history section page-section">
+  <div class="section-title"><div><p class="eyebrow">LATEST TRACKING SESSION</p><h2>Vehicles passed over time</h2></div><div class="report-actions"><button class="secondary" id="reset-report">Clear report</button><a class="secondary download" href="/api/report.csv">Download CSV</a></div></div>
+  <div class="report-kpis"><article><span>TOTAL PASSED</span><strong id="total-passed">0</strong></article><article><span>CARS</span><strong id="cars">0</strong></article><article><span>MOTORCYCLES</span><strong id="motorcycles">0</strong></article><article><span>BUSES</span><strong id="buses">0</strong></article><article><span>TRUCKS</span><strong id="trucks">0</strong></article><article class="report-risk"><span>PEAK RISK</span><strong id="peak-risk">0%</strong></article></div>
+  <div class="report-grid"><div class="chart-panel"><canvas id="chart"></canvas><div id="chart-empty">Run an analysis and let vehicles cross the counting line.</div></div><div class="summary"><article><span>Real samples</span><strong id="samples">0</strong></article><article><span>Average in frame</span><strong id="average">0</strong></article><article><span>Average density</span><strong id="avg-density">0%</strong></article><article><span>Peak in frame</span><strong id="peak">0</strong></article></div></div>
+  <div class="report-note"><b>Live data only</b><span>Every point comes from YOLO + ByteTrack analysis. Traffic Risk % is calculated from real vehicle count and occupied road density against the configured congestion thresholds.</span></div>
+</section>
+{% endblock %}
+{% block scripts %}<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script><script src="{{ url_for('static', filename='app.js') }}"></script>{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Live Monitor · RoadPulse AI{% endblock %}
+{% block content %}
+<div class="page-hero monitor-hero"><p class="eyebrow">AI TRAFFIC OPERATIONS</p><h1>Vehicle tracking center</h1><p>Track, classify and count vehicles crossing the virtual detection line.</p></div>
+<section class="monitor section page-section technical-monitor">
+  <div class="section-title"><div><p class="eyebrow">LIVE TELEMETRY</p><h2>Real-time analysis</h2></div><p id="status-message">Choose a source to begin analysis.</p></div>
+  <div class="control-grid">
+    <aside class="panel controls"><h3>Input source</h3><div class="tabs"><button class="tab active" data-tab="camera">Live camera</button><button class="tab" data-tab="upload">Video file</button></div>
+      <form id="source-form"><input type="hidden" name="source_type" id="source-type" value="camera"><div id="camera-fields"><label>Camera index<input name="camera_index" type="number" value="0" min="0"></label><small>Usually 0 for the built-in webcam.</small></div><div id="upload-fields" hidden><label class="drop"><input name="video" type="file" accept="video/*"><strong>Choose traffic video</strong><span>MP4, AVI, MOV, MKV or WebM</span></label></div><button class="primary full" type="submit">Run tracking</button><button class="secondary full" type="button" id="stop">Stop analysis</button></form>
+      <div class="model"><span>Vision engine</span><strong id="backend">Loading…</strong><small>Low-latency mode · latest-frame capture</small></div>
+    </aside>
+    <div class="video-panel"><div class="video-head"><span><i class="live-dot"></i> AI CAMERA FEED</span><span id="fps">0 FPS</span></div><div class="feed"><img id="feed" alt="Analyzed traffic video"><div id="placeholder"><div>⌗</div><strong>No telemetry source</strong><span>Start a camera or upload a file</span></div></div></div>
+  </div>
+  <div class="vehicle-results">
+    <div><p class="eyebrow">LIVE CLASSIFICATION</p><h3>Currently visible</h3></div><div id="vehicle-types" class="vehicle-badges"><span class="empty-result">No vehicle detected</span></div>
+    <div class="passed-divider"></div>
+    <div><p class="eyebrow">CROSSING COUNTER</p><h3>Vehicles passed</h3></div><div id="passed-types" class="vehicle-badges"><span class="empty-result">No vehicle crossed the line</span></div>
+  </div>
+  <div class="metrics risk-metrics">
+    <article><span>CURRENTLY IN FRAME</span><strong id="vehicles">0</strong><small>Live detections</small></article>
+    <article class="passed-card"><span>TOTAL VEHICLES PASSED</span><strong id="passed-count">0</strong><small>Unique tracked IDs</small></article>
+    <article><span>ROAD DENSITY</span><strong id="density">0.0%</strong><div class="meter"><i id="density-bar"></i></div></article>
+    <article class="risk-card"><span>TRAFFIC RISK</span><strong id="risk-percentage" class="risk-value low">0.0%</strong><div class="risk-meter"><i id="risk-bar"></i></div><small id="risk-label">Low risk</small></article>
+    <article><span>CONGESTION LEVEL</span><strong id="congestion" class="level waiting">Waiting</strong><small>Low · Medium · High</small></article>
+    <article><span>PEAK IN FRAME</span><strong id="peak">0</strong><small>All recorded samples</small></article>
+  </div>
+  <div class="counting-note"><b>How counting works</b><span>Each vehicle receives a unique tracking ID. It is counted once when its center crosses the yellow virtual line.</span></div>
+</section>
+{% endblock %}
