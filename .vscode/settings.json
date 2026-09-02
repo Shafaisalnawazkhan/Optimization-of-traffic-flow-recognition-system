@@ -1,0 +1,18 @@
+{
+  "djlint.useVenv": false,
+  "djlint.executablePath": ".venv/Scripts/djlint.exe",
+  "[html]": {
+    "editor.defaultFormatter": "monosans.djlint",
+    "editor.formatOnSave": true,
+    "djlint.enableLinting": true,
+    "djlint.profile": "jinja"
+  },
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  }
+}

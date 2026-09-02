@@ -1,1 +1,58 @@
-.vehicle-results{margin-top:18px;padding:20px 23px;background:#fff;border:1px solid #dce6ee;border-radius:14px;display:flex;align-items:center;justify-content:space-between;gap:20px}.vehicle-results h3{margin:0;font:600 18px "Space Grotesk"}.vehicle-results .eyebrow{margin-bottom:5px!important}.vehicle-badges{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:10px}.vehicle-badge{display:flex;align-items:center;gap:12px;padding:10px 10px 10px 15px;border-radius:9px;background:#eaf4ff;color:#145bb7;font-size:14px}.vehicle-badge i{display:grid;place-items:center;width:25px;height:25px;border-radius:7px;background:#146df5;color:#fff;font-style:normal;font-weight:800}.empty-result{color:#89939d;font-size:14px}@media(max-width:700px){.vehicle-results{align-items:flex-start;flex-direction:column}.vehicle-badges{justify-content:flex-start}}
+.vehicle-results {
+  margin-top: 18px;
+  padding: 20px 23px;
+  background: #fff;
+  border: 1px solid #dce6ee;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+.vehicle-results h3 {
+  margin: 0;
+  font: 600 18px "Space Grotesk";
+}
+.vehicle-results .eyebrow {
+  margin-bottom: 5px !important;
+}
+.vehicle-badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 10px;
+}
+.vehicle-badge {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 10px 10px 15px;
+  border-radius: 9px;
+  background: #eaf4ff;
+  color: #145bb7;
+  font-size: 14px;
+}
+.vehicle-badge i {
+  display: grid;
+  place-items: center;
+  width: 25px;
+  height: 25px;
+  border-radius: 7px;
+  background: #146df5;
+  color: #fff;
+  font-style: normal;
+  font-weight: 800;
+}
+.empty-result {
+  color: #89939d;
+  font-size: 14px;
+}
+@media (max-width: 700px) {
+  .vehicle-results {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .vehicle-badges {
+    justify-content: flex-start;
+  }
+}

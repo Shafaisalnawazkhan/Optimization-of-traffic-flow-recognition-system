@@ -1,1 +1,128 @@
-nav a{padding:27px 2px 24px;border-bottom:3px solid transparent}nav a.active{color:#146df5;border-bottom-color:#146df5}.page-hero{padding:70px max(calc((100vw - 1210px)/2),35px);background:linear-gradient(115deg,#f7fbff,#eaf5ff)}.page-hero h1{font:700 clamp(38px,5vw,62px) "Space Grotesk";letter-spacing:-2px;margin:0 0 12px}.page-hero>p:last-child{color:#687583;font-size:17px}.page-hero.dark{background:#0f2032;color:#fff}.page-hero.dark>p:last-child{color:#9db0c1}.page-section{padding-top:55px}.home-features{padding-top:65px;padding-bottom:70px}.feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.feature-grid a{background:#fff;border:1px solid #dce6ee;border-radius:15px;padding:28px;text-decoration:none;color:#112133;box-shadow:0 5px 22px #3558750c;transition:.2s}.feature-grid a:hover{transform:translateY(-4px);border-color:#a9c9f8;box-shadow:0 14px 35px #146df51a}.feature-grid span{font-size:28px;color:#146df5}.feature-grid h3{font:700 21px "Space Grotesk";margin:24px 0 9px}.feature-grid p{color:#687583;line-height:1.6;min-height:52px}.feature-grid b{color:#146df5;font-size:13px}.workflow-page{padding-top:60px;padding-bottom:70px}.flow-details{padding-top:70px}.flow-list{max-width:850px;margin:auto;display:grid;gap:14px}.flow-list article{background:#fff;border:1px solid #dce6ee;border-radius:13px;padding:20px;display:flex;gap:20px;align-items:center}.flow-list article>b{display:grid;place-items:center;flex:0 0 42px;height:42px;border-radius:50%;background:#e8f2ff;color:#146df5}.flow-list h3{margin:0 0 5px;font:600 17px "Space Grotesk"}.flow-list p{margin:0;color:#687583;font-size:14px}@media(max-width:900px){.feature-grid{grid-template-columns:1fr}.page-hero{padding:50px 25px}}@media(max-width:560px){.page-hero{padding:42px 16px}.page-hero h1{font-size:36px}}
+nav a {
+  padding: 27px 2px 24px;
+  border-bottom: 3px solid transparent;
+}
+nav a.active {
+  color: #146df5;
+  border-bottom-color: #146df5;
+}
+.page-hero {
+  padding: 70px max(calc((100vw - 1210px) / 2), 35px);
+  background: linear-gradient(115deg, #f7fbff, #eaf5ff);
+}
+.page-hero h1 {
+  font: 700 clamp(38px, 5vw, 62px) "Space Grotesk";
+  letter-spacing: -2px;
+  margin: 0 0 12px;
+}
+.page-hero > p:last-child {
+  color: #687583;
+  font-size: 17px;
+}
+.page-hero.dark {
+  background: #0f2032;
+  color: #fff;
+}
+.page-hero.dark > p:last-child {
+  color: #9db0c1;
+}
+.page-section {
+  padding-top: 55px;
+}
+.home-features {
+  padding-top: 65px;
+  padding-bottom: 70px;
+}
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.feature-grid a {
+  background: #fff;
+  border: 1px solid #dce6ee;
+  border-radius: 15px;
+  padding: 28px;
+  text-decoration: none;
+  color: #112133;
+  box-shadow: 0 5px 22px #3558750c;
+  transition: 0.2s;
+}
+.feature-grid a:hover {
+  transform: translateY(-4px);
+  border-color: #a9c9f8;
+  box-shadow: 0 14px 35px #146df51a;
+}
+.feature-grid span {
+  font-size: 28px;
+  color: #146df5;
+}
+.feature-grid h3 {
+  font: 700 21px "Space Grotesk";
+  margin: 24px 0 9px;
+}
+.feature-grid p {
+  color: #687583;
+  line-height: 1.6;
+  min-height: 52px;
+}
+.feature-grid b {
+  color: #146df5;
+  font-size: 13px;
+}
+.workflow-page {
+  padding-top: 60px;
+  padding-bottom: 70px;
+}
+.flow-details {
+  padding-top: 70px;
+}
+.flow-list {
+  max-width: 850px;
+  margin: auto;
+  display: grid;
+  gap: 14px;
+}
+.flow-list article {
+  background: #fff;
+  border: 1px solid #dce6ee;
+  border-radius: 13px;
+  padding: 20px;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+.flow-list article > b {
+  display: grid;
+  place-items: center;
+  flex: 0 0 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #e8f2ff;
+  color: #146df5;
+}
+.flow-list h3 {
+  margin: 0 0 5px;
+  font: 600 17px "Space Grotesk";
+}
+.flow-list p {
+  margin: 0;
+  color: #687583;
+  font-size: 14px;
+}
+@media (max-width: 900px) {
+  .feature-grid {
+    grid-template-columns: 1fr;
+  }
+  .page-hero {
+    padding: 50px 25px;
+  }
+}
+@media (max-width: 560px) {
+  .page-hero {
+    padding: 42px 16px;
+  }
+  .page-hero h1 {
+    font-size: 36px;
+  }
+}
